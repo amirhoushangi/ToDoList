@@ -43,8 +43,8 @@ app.*.map.json
 /android/app/release
 
 # Ignore platform-specific folders (to exclude C++ files)
-android/
-ios/
-windows/
-linux/
-macos/
+/android/
+/ios/
+/windows/
+/linux/
+/macos/
