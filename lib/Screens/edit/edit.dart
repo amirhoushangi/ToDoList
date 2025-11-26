@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data.dart';
+import 'package:flutter_application_1/data/data.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -14,7 +14,7 @@ class EditTaskScreen extends StatefulWidget {
 }
 
 class _EditTaskScreenState extends State<EditTaskScreen> {
- late final TextEditingController _controller = TextEditingController(text: widget.task.name);
+ late final TextEditingController _controller = TextEditifngController(text: widget.task.name);
 
   @override
   Widget build(BuildContext context) {
