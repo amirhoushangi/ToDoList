@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/data.dart';
+import 'package:flutter_application_1/data/repo/repository.dart';
 import 'package:flutter_application_1/main.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 class EditTaskScreen extends StatefulWidget {
   final TaskEntity task;
@@ -14,7 +16,8 @@ class EditTaskScreen extends StatefulWidget {
 }
 
 class _EditTaskScreenState extends State<EditTaskScreen> {
- late final TextEditingController _controller = TextEditifngController(text: widget.task.name);
+  late final TextEditingController _controller =
+      TextEditingController(text: widget.task.name);
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +35,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           onPressed: () {
             widget.task.name = _controller.text;
             widget.task.priority = widget.task.priority;
-            if (widget.task.isInBox) {
-              widget.task.save();
-            } else {
-              final Box<TaskEntity> box = Hive.box(taskBoxName);
-              box.add(widget.task);
-            }
+            final repository =
+                Provider.of<Repository<TaskEntity>>(context, listen: false);
+            repository.createOrUpdate(widget.task);
 
             Navigator.of(context).pop();
           },

@@ -38,6 +38,12 @@ class HiveTaskDataSource implements DataSource<TaskEntity> {
 
   @override
   Future<List<TaskEntity>> getAll({String searchkeyword = ''}) async {
-    return box.values.toList();
+    if (searchkeyword.isNotEmpty) {
+      return box.values
+          .where((task) => task.name.contains(searchkeyword))
+          .toList();
+    } else {
+      return box.values.toList();
+    }
   }
 }
