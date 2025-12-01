@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Screens/edit/cubit/edit_task_cubit.dart';
 import 'package:flutter_application_1/Screens/edit/edit.dart';
 import 'package:flutter_application_1/Screens/home/bloc/task_list_bloc.dart';
 import 'package:flutter_application_1/Widgets.dart';
@@ -29,8 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EditTaskScreen(
-                          task: TaskEntity(),
+                    builder: (context) => BlocProvider<EditTaskCubit>(
+                          create: (context) => EditTaskCubit(TaskEntity(),
+                              context.read<Repository<TaskEntity>>()),
+                          child: const EditTaskScreen(),
                         )));
           },
           label: const Row(
@@ -242,7 +245,10 @@ class _TaskItemState extends State<TaskItem> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => EditTaskScreen(task: widget.task),
+              builder: (context) => BlocProvider<EditTaskCubit>(
+                  create: (context) => EditTaskCubit(
+                      widget.task, context.read<Repository<TaskEntity>>()),
+                  child: const EditTaskScreen()),
             ),
           );
         },
